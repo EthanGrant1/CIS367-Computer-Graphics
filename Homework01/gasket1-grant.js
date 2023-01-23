@@ -3,7 +3,11 @@
 var gl;
 var points;
 
-var NumPoints = 15000;
+var NumPoints = 30000;
+
+function getRandomArbitrary(min, max) { 
+      return Math.random() * (max - min) + min; 
+}
 
 window.onload = function init()
 {
@@ -19,9 +23,9 @@ window.onload = function init()
     // First, initialize the corners of our gasket with three points.
 
     var vertices = [
-        vec2( -1, -1 ),
-        vec2(  0,  1 ),
-        vec2(  1, -1 )
+        vec2( -1, 1 ),
+        vec2(  0,  -1 ),
+        vec2(  1, 1 )
     ];
 
     // Specify a starting point p for our iterations
