@@ -3,7 +3,7 @@
 ## Repository for Computer Graphics assignments.
 
 ### In Class Assignments
-- [In Class Assignment 01 - Basic Triangle in WebGL](https://ethangrant1.github.io/CIS367-Computer-Graphics/InClassAssignment01/triangle.html)
+- [In Class Assignment 01 - Basic Triangle in WebGL](InClassAssignment01/README.md)
 
 ### Homeworks
-- [Homework 01 - Sierpinski Gasket](https://ethangrant1.github.io/CIS367-Computer-Graphics/Homework01/gasket1-grant.html)
+- [Homework 01 - Sierpinski Gasket](Homework01/README.md)
