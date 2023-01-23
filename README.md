@@ -1,4 +1,4 @@
-# CIS367-Computer-Graphics
+# Ethan Grant - CIS367 Portfolio
 
 ## Repository for Computer Graphics assignments.
 
