@@ -3,22 +3,24 @@
 
 <head>
 
-<title>Interactive Triangle</title>
+<title>Rotating Triangle</title>
 <meta charset="utf-8">
 
 <!-- Define our shaders -->
 <script id="vertex-shader" type="x-shader/x-vertex">
-    
-    uniform float x;
-    uniform float y;
+   
+    attribute vec4 vPosition;
+    uniform float theta;
 
-    attribute vec4 vPosition; 
-    void main() { 
-        gl_Position.x += x + vPosition.x;
-        gl_Position.y += y + vPosition.y;
+    void main() {
+        float s = sin(theta);
+        float c = cos(theta);
+
+        gl_Position.x = -s * vPosition.y + c * vPosition.x;
+        gl_Position.y =  s * vPosition.x + c * vPosition.y;
         gl_Position.z = 0.0;
         gl_Position.w = 1.0;
-    }
+    } 
 
 </script>
 
@@ -37,11 +39,7 @@
 <script src="../libraries/Common/MV.js"></script>
 
 <!-- Our triangle script -->
-<script src="./triangle-interact.js"></script>
-
-<!-- JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script src="./triangle-rotate.js"></script>
 </head>
 
 <body>
