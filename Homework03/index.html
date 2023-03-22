@@ -136,9 +136,11 @@
             let app;
             let keys;
             let mario;
+            let maxX = 640;
+            let maxY = 360;
 
             window.onload = function() {
-                app = new PIXI.Application({ width: 640, height: 360 });
+                app = new PIXI.Application({ width: maxX, height: maxY });
                 document.body.appendChild(app.view);
 
                 keys = {};
@@ -151,6 +153,8 @@
 
                 mario.x = app.screen.width / 2;
                 mario.y = app.screen.height / 2;
+                mario.width = 50;
+                mario.height = 50;
 
                 app.stage.addChild(mario);
             
@@ -187,6 +191,22 @@
                 // Down
                 if (keys["40"]) {
                     mario.y += 5;
+                }
+
+                if (mario.anchor.x + 25 > maxX) {
+                    mario.x = maxX - 25;
+                }
+
+                if (mario.anchor.x - 25 < 0) {
+                    mario x = 25;
+                }
+
+                if (mario.anchor.y + 25 > maxY) {
+                    mario.y = maxY - 25;
+                }
+
+                if (mario.anchor.y - 25 < 0) {
+                    mario.y = 25;
                 }
             }
 
