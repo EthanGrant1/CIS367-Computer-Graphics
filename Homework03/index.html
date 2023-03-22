@@ -16,11 +16,10 @@
             }
         }
         </script>
-        
 		<script type="module">
 			import * as THREE from 'three';
 			const scene = new THREE.Scene();
-            let boxes = [];
+			let boxes = [];
 			const fov = 75;
 			const near = 0.1;
 			const far = 1000;
@@ -29,188 +28,165 @@
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
 			renderer.setClearColor(0xFF00FF);
-
-           // Load Textures
-            let floorWidth = 20;
-            let floorHeight = 40;
-            let boxWidth = 1;
-            let boxHeight = 2;
-            let boxDepth = 1;
-            let textureLoader = new THREE.TextureLoader();
-
-            let grass = textureLoader.load('minecraft-grass.png');
-            grass.wrapS = THREE.RepeatWrapping;
-            grass.wrapT = THREE.RepeatWrapping;
-            grass.repeat.set(floorWidth / 2, floorHeight / 2);
-
-            let stone = textureLoader.load('minecraft-stone-brick.png');
-            stone.wrapS = THREE.RepeatWrapping;
-            stone.wrapT = THREE.RepeatWrapping;
-            stone.repeat.set(boxWidth / 2, boxHeight / 2);
- 
-			
-            // Add a floor to the scene
+			// Load Textures
+			let floorWidth = 20;
+			let floorHeight = 40;
+			let boxWidth = 1;
+			let boxHeight = 2;
+			let boxDepth = 1;
+			let textureLoader = new THREE.TextureLoader();
+			let grass = textureLoader.load('minecraft-grass.png');
+			grass.wrapS = THREE.RepeatWrapping;
+			grass.wrapT = THREE.RepeatWrapping;
+			grass.repeat.set(floorWidth / 2, floorHeight / 2);
+			let stone = textureLoader.load('minecraft-stone-brick.png');
+			stone.wrapS = THREE.RepeatWrapping;
+			stone.wrapT = THREE.RepeatWrapping;
+			stone.repeat.set(boxWidth / 2, boxHeight / 2);
+			// Add a floor to the scene
 			let floorGeometry = new THREE.PlaneGeometry(floorWidth, floorHeight);
 			let floorMaterial = new THREE.MeshStandardMaterial({
-                map: grass,
-  				metalness: 0.25,
-  				roughness: 0.75
+				map: grass,
+				metalness: 0.25,
+				roughness: 0.75
 			});
 			let floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
-			
-            // A Plane is created standing vertically.
+			// A Plane is created standing vertically.
 			// Let's rotate it so that is lays flat.
 			floorMesh.position.set(0, -1, -3);
 			floorMesh.rotation.set(-Math.PI / 2, 0, 0);
 			scene.add(floorMesh);
-			
-            // Add a box to the scene
+			// Add a box to the scene
 			let boxGeometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 			let boxMaterial = new THREE.MeshStandardMaterial({
 				map: stone,
-  				metalness: 0,
-  				roughness: 1
-	
+				metalness: 0,
+				roughness: 1
 			});
-			
-            for (let i = 0; i < 14; i++) {
-                let boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-                boxMesh.position.set(i - 7, 1, -5);
-                boxMesh.recieveShadow = true;
-                boxMesh.castShadow = true;
-                scene.add(boxMesh);
-                boxes.push(boxMesh);
-            }
-
-            // Add a torus to the scene
-            let torusGeometry = new THREE.TorusGeometry(1, 0.25, 16, 100);
-            const material = new THREE.MeshBasicMaterial({color: 0xffff00});
-            const torusMesh = new THREE.Mesh(torusGeometry, material);
-            torusMesh.position.set(0, 0.5, -3);
-            torusMesh.receiveShadow = true;
-            torusMesh.castShadow = true;
-            scene.add(torusMesh);
-
-            // Add the Lights
-            // Ambient light is used to prevent the scene
-            // from ever being too dark.
-            var ambient = new THREE.AmbientLight(0x333333);
-            scene.add(ambient);
-
-            // A point light acts like a light bulb, sending light
-            // in all directions.
-            var lightIntensity = 1;
-            var pointLight = new THREE.PointLight(0xFFFFFF, lightIntensity);
-            pointLight.position.set(2, 4, -2);
-            scene.add(pointLight);
-
-            // Enable Shadows
-            // The floor will only receive shadows, but the box can both
-            // cast and receive shadows.
-            renderer.shadowMap.enabled = true;
-            floorMesh.receiveShadow = true;
-
-            /*
-            boxMesh.receiveShadow = true;
-            boxMesh.castShadow = true;
-            */
-
-            pointLight.castShadow = true;
+			for (let i = 0; i < 14; i++) {
+				let boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+				boxMesh.position.set(i - 7, 1, -5);
+				boxMesh.recieveShadow = true;
+				boxMesh.castShadow = true;
+				scene.add(boxMesh);
+				boxes.push(boxMesh);
+			}
+			// Add a torus to the scene
+			let torusGeometry = new THREE.TorusGeometry(1, 0.25, 16, 100);
+			const material = new THREE.MeshBasicMaterial({
+				color: 0xffff00
+			});
+			const torusMesh = new THREE.Mesh(torusGeometry, material);
+			torusMesh.position.set(0, 0.5, -3);
+			torusMesh.receiveShadow = true;
+			torusMesh.castShadow = true;
+			scene.add(torusMesh);
+			// Add the Lights
+			// Ambient light is used to prevent the scene
+			// from ever being too dark.
+			var ambient = new THREE.AmbientLight(0x333333);
+			scene.add(ambient);
+			// A point light acts like a light bulb, sending light
+			// in all directions.
+			var lightIntensity = 1;
+			var pointLight = new THREE.PointLight(0xFFFFFF, lightIntensity);
+			pointLight.position.set(2, 4, -2);
+			scene.add(pointLight);
+			// Enable Shadows
+			// The floor will only receive shadows, but the box can both
+			// cast and receive shadows.
+			renderer.shadowMap.enabled = true;
+			floorMesh.receiveShadow = true;
+			/*
+			boxMesh.receiveShadow = true;
+			boxMesh.castShadow = true;
+			*/
+			pointLight.castShadow = true;
 
 			function animate() {
-                for(let i = 0; i < boxes.length; i++) {
-                    boxes[i].rotateX(Math.PI/(100+i));
-                }
-
-                torusMesh.rotateY(Math.PI/(100));
- 
+				for (let i = 0; i < boxes.length; i++) {
+					boxes[i].rotateX(Math.PI / (100 + i));
+				}
+				torusMesh.rotateY(Math.PI / (100));
 				requestAnimationFrame(animate);
 				renderer.render(scene, camera);
 			}
-
 			animate();
 		</script>
-        
-        <script src="https://pixijs.download/release/pixi.js"></script>
-        <script>
-            let app;
-            let keys;
-            let mario;
-            let maxX = 640;
-            let maxY = 360;
+		<script src="https://pixijs.download/release/pixi.js"></script>
+		<script>
+			let app;
+			let keys;
+			let mario;
+			let maxX = 640;
+			let maxY = 360;
+			window.onload = function() {
+				app = new PIXI.Application({
+					width: maxX,
+					height: maxY
+				});
+				document.body.appendChild(app.view);
+				keys = {};
+				// create a new Sprite from an image path
+				mario = PIXI.Sprite.from('mario.png');
+				// center the sprite's anchor point
+				mario.anchor.set(0.5);
+				mario.x = app.screen.width / 2;
+				mario.y = app.screen.height / 2;
+				mario.width = 50;
+				mario.height = 50;
+				app.stage.addChild(mario);
+				window.addEventListener("keydown", keysDown);
+				window.addEventListener("keyup", keysUp);
+				app.ticker.add(gameLoop);
+			}
 
-            window.onload = function() {
-                app = new PIXI.Application({ width: maxX, height: maxY });
-                document.body.appendChild(app.view);
+			function keysDown(e) {
+				keys[e.keyCode] = true;
+			}
 
-                keys = {};
+			function keysUp(e) {
+				keys[e.keyCode] = false;
+			}
 
-                // create a new Sprite from an image path
-                mario = PIXI.Sprite.from('mario.png');
+			function gameLoop() {
+				// Left
+				if (keys["37"]) {
+                    console.log(mario.x);
+					mario.x -= 5;
+				}
+				// Up
+				if (keys["38"]) {
+                    console.log(mario.y);
+					mario.y -= 5;
+				}
+				// Right
+				if (keys["39"]) {
+                    console.log(mario.x);
+					mario.x += 5;
+				}
+				// Down
+				if (keys["40"]) {
+                    console.log(mario.y);
+					mario.y += 5;
+				}
 
-                // center the sprite's anchor point
-                mario.anchor.set(0.5);
-
-                mario.x = app.screen.width / 2;
-                mario.y = app.screen.height / 2;
-                mario.width = 50;
-                mario.height = 50;
-
-                app.stage.addChild(mario);
-            
-                window.addEventListener("keydown", keysDown);
-                window.addEventListener("keyup", keysUp);
-
-                app.ticker.add(gameLoop);
-            }
-
-            function keysDown(e) {
-                keys[e.keyCode] = true;
-            }
-
-            function keysUp(e) {
-                keys[e.keyCode] = false;
-            }
-
-            function gameLoop() {
-                // Left
-                if (keys["37"]) {
-                    mario.x -= 5;
-                }
-
-                // Up
-                if (keys["38"]) {
-                    mario.y -= 5;
-                }
-
-                // Right
-                if (keys["39"]) {
-                    mario.x += 5;
-                }
-
-                // Down
-                if (keys["40"]) {
-                    mario.y += 5;
-                }
-
-                if (mario.anchor.x + 25 > maxX) {
-                    mario.x = maxX - 25;
-                }
-
-                if (mario.anchor.x - 25 < 0) {
-                    mario.x = 25;
-                }
-
-                if (mario.anchor.y + 25 > maxY) {
-                    mario.y = maxY - 25;
-                }
-
-                if (mario.anchor.y - 25 < 0) {
-                    mario.y = 25;
-                }
-            }
-
-        </script>
+                /*
+				if (mario.anchor.x + 25 > maxX) {
+					mario.x = maxX - 25;
+				}
+				if (mario.anchor.x - 25 < 0) {
+					mario.x = 25;
+				}
+				if (mario.anchor.y + 25 > maxY) {
+					mario.y = maxY - 25;
+				}
+				if (mario.anchor.y - 25 < 0) {
+					mario.y = 25;
+				}
+                */
+			}
+		</script>
 	</head>
 	<body></body>
 </html>
