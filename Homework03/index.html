@@ -169,22 +169,19 @@
 				if (keys["40"]) {
                     console.log(mario.y);
 					mario.y += 5;
+		    	}
+				if (mario.x > maxX) {
+					mario.x = maxX;
 				}
-
-                /*
-				if (mario.anchor.x + 25 > maxX) {
-					mario.x = maxX - 25;
+				else if (mario.x < 0) {
+					mario.x = 0;
 				}
-				if (mario.anchor.x - 25 < 0) {
-					mario.x = 25;
+				if (mario.y > maxY) {
+					mario.y = maxY;
 				}
-				if (mario.anchor.y + 25 > maxY) {
-					mario.y = maxY - 25;
+				else if (mario.y < 0) {
+					mario.y = 0;
 				}
-				if (mario.anchor.y - 25 < 0) {
-					mario.y = 25;
-				}
-                */
 			}
 		</script>
 	</head>
