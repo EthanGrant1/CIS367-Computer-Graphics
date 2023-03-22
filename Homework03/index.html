@@ -11,11 +11,12 @@
 		</style>
 		<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 		<script type="importmap"> {
-      "imports": {
-        "three": "https://unpkg.com/three@latest/build/three.module.js"
-      }
-    }
-  </script>
+            "imports": {
+                "three": "https://unpkg.com/three@latest/build/three.module.js"
+            }
+        }
+        </script>
+        <script async src="https://pixijs.download/release/pixi.js"></script>
 		<script type="module">
 			import * as THREE from 'three';
 			const scene = new THREE.Scene();
@@ -81,6 +82,15 @@
                 boxes.push(boxMesh);
             }
 
+            // Add a torus to the scene
+            let torusGeometry = new THREE.TorusGeometry(1, 0.25, 16, 100);
+            const material = new THREE.MeshBasicMaterial({color: 0xffff00});
+            const torusMesh = new THREE.Mesh(torusGeometry, material);
+            torusMesh.position.set(0, 0.5, -3);
+            torusMesh.receiveShadow = true;
+            torusMesh.castShadow = true;
+            scene.add(torusMesh);
+
             // Add the Lights
             // Ambient light is used to prevent the scene
             // from ever being too dark.
@@ -111,6 +121,8 @@
                 for(let i = 0; i < boxes.length; i++) {
                     boxes[i].rotateX(Math.PI/(100+i));
                 }
+
+                torusMesh.rotateY(Math.PI/(100));
  
 				requestAnimationFrame(animate);
 				renderer.render(scene, camera);
@@ -118,6 +130,62 @@
 
 			animate();
 		</script>
+
+        <script type="module">
+            import * as PIXI from 'pixi.js';
+
+            let app = new PIXI.Application({ width: 640, height: 360 });
+            document.body.appendChild(app.view);
+
+            let keys = {};
+
+            // create a new Sprite from an image path
+            let mario = PIXI.Sprite.from('mario.png');
+
+            // center the sprite's anchor point
+            mario.anchor.set(0.5);
+
+            mario.x = app.screen.width / 2;
+            mario.y = app.screen.height / 2;
+
+            app.stage.addChild(mario);
+            
+            window.addEventListener("keydown", keysDown);
+            window.addEventListener("keyup", keysUp);
+
+            app.ticker.add(gameLoop);
+
+            function keysDown(e) {
+                keys[e.keyCode] = true;
+            }
+
+            function keyUp(e) {
+                keys[e.keyCode] = false;
+            }
+
+            function gameLoop() {
+                // Left
+                if (keys["37"]) {
+                    mario.x -= 5;
+                }
+
+                // Up
+                if f(keys["38"]) {
+                    mario.y -= 5;
+                }
+
+                // Right
+                if (keys["39"]) {
+                    mario.x += 5;
+                }
+
+                // Down
+                if (keys["40"]) {
+                    mario.y += 5;
+                }
+            }
+
+        </script>
 	</head>
 	<body></body>
 </html>
