@@ -16,7 +16,7 @@
             }
         }
         </script>
-        <script async src="https://pixijs.download/release/pixi.js"></script>
+        
 		<script type="module">
 			import * as THREE from 'three';
 			const scene = new THREE.Scene();
@@ -130,36 +130,41 @@
 
 			animate();
 		</script>
+        
+        <script src="https://pixijs.download/release/pixi.js"></script>
+        <script>
+            let app;
+            let keys;
+            let mario;
 
-        <script type="module">
-            import * as PIXI from 'pixi.js';
+            window.onload = function() {
+                app = new PIXI.Application({ width: 640, height: 360 });
+                document.body.appendChild(app.view);
 
-            let app = new PIXI.Application({ width: 640, height: 360 });
-            document.body.appendChild(app.view);
+                keys = {};
 
-            let keys = {};
+                // create a new Sprite from an image path
+                mario = PIXI.Sprite.from('mario.png');
 
-            // create a new Sprite from an image path
-            let mario = PIXI.Sprite.from('mario.png');
+                // center the sprite's anchor point
+                mario.anchor.set(0.5);
 
-            // center the sprite's anchor point
-            mario.anchor.set(0.5);
+                mario.x = app.screen.width / 2;
+                mario.y = app.screen.height / 2;
 
-            mario.x = app.screen.width / 2;
-            mario.y = app.screen.height / 2;
-
-            app.stage.addChild(mario);
+                app.stage.addChild(mario);
             
-            window.addEventListener("keydown", keysDown);
-            window.addEventListener("keyup", keysUp);
+                window.addEventListener("keydown", keysDown);
+                window.addEventListener("keyup", keysUp);
 
-            app.ticker.add(gameLoop);
+                app.ticker.add(gameLoop);
+            }
 
             function keysDown(e) {
                 keys[e.keyCode] = true;
             }
 
-            function keyUp(e) {
+            function keysUp(e) {
                 keys[e.keyCode] = false;
             }
 
