@@ -151,36 +151,37 @@
 
 			function gameLoop() {
 				// Left
-				if (keys["37"]) {
+				if (keys["37"] || keys["65"]) {
                     console.log(mario.x);
 					mario.x -= 5;
 				}
 				// Up
-				if (keys["38"]) {
+				if (keys["38"] || keys["87"]) {
                     console.log(mario.y);
 					mario.y -= 5;
 				}
 				// Right
-				if (keys["39"]) {
+				if (keys["39"] || keys["68"]) {
                     console.log(mario.x);
 					mario.x += 5;
 				}
 				// Down
-				if (keys["40"]) {
+				if (keys["40"] || keys["83"]) {
                     console.log(mario.y);
 					mario.y += 5;
 		    	}
-				if (mario.x > maxX) {
-					mario.x = maxX;
+                // Constrain position
+				if (mario.x > maxX - 25) {
+					mario.x = maxX - 25;
 				}
-				else if (mario.x < 0) {
-					mario.x = 0;
+				else if (mario.x < 25) {
+					mario.x = 25;
 				}
-				if (mario.y > maxY) {
-					mario.y = maxY;
+				if (mario.y > maxY - 25) {
+					mario.y = maxY - 25;
 				}
-				else if (mario.y < 0) {
-					mario.y = 0;
+				else if (mario.y < 25) {
+					mario.y = 25;
 				}
 			}
 		</script>
